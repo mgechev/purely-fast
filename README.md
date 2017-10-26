@@ -1,6 +1,6 @@
 # Introduction
 
-Demo application for my talk on Angular Connect 2017.
+Demo application for my talk on AngularConnect 2017. The project is based on [Angular Seed](https://github.com/mgechev/angular-seed).
 
 # Instructions
 
