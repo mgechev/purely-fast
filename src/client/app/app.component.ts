@@ -1,4 +1,4 @@
-import { ListGenerator, Entry } from './tree-generator.service';
+import { ListGenerator, EmployeeData } from './tree-generator.service';
 import { Component, OnInit } from '@angular/core';
 import './operators';
 import { Names } from './names';
@@ -26,8 +26,8 @@ const NumRange: [number, number] = [23, 28];
   styleUrls: ['app.component.css']
 })
 export class AppComponent implements OnInit {
-  salesList: Entry[];
-  rndList: Entry[];
+  salesList: EmployeeData[];
+  rndList: EmployeeData[];
   label: string;
 
   constructor(private generator: ListGenerator) {}
@@ -37,11 +37,11 @@ export class AppComponent implements OnInit {
     this.rndList = this.generator.generate(Names, NumRange, 10);
   }
 
-  add(list: Entry[], name: string) {
+  add(list: EmployeeData[], name: string) {
     list.unshift({ label: name, num: this.generator.generateNumber(NumRange) });
   }
 
-  remove(list: Entry[], node: Entry) {
+  remove(list: EmployeeData[], node: EmployeeData) {
     list.splice(list.indexOf(node), 1);
   }
 }

@@ -4,11 +4,11 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
-import { ListModule } from './list/list.module';
+import { EmployeeListModule } from './employee-list/employee-list.module';
 import { ListGenerator } from './tree-generator.service';
 
 @NgModule({
-  imports: [BrowserModule, ListModule],
+  imports: [BrowserModule, EmployeeListModule],
   providers: [ListGenerator],
   declarations: [AppComponent],
   bootstrap: [AppComponent]

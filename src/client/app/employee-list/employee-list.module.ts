@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatListModule, MatCommonModule, MatChipsModule } from '@angular/material';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 
-import { ListComponent } from './list.component';
+import { EmployeeListComponent } from './employee-list.component';
 
 @NgModule({
   imports: [
@@ -18,7 +18,7 @@ import { ListComponent } from './list.component';
     MatCommonModule,
     MatChipsModule
   ],
-  declarations: [ListComponent],
-  exports: [ListComponent]
+  declarations: [EmployeeListComponent],
+  exports: [EmployeeListComponent]
 })
-export class ListModule {}
+export class EmployeeListModule {}
