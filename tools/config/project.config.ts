@@ -45,6 +45,14 @@ export class ProjectConfig extends SeedConfig {
     // Add packages (e.g. ng2-translate)
     let additionalPackages: ExtendPackages[] = [
       {
+        name: 'immutable',
+        path: 'node_modules/immutable/dist/immutable.js'
+      },
+      {
+        name: 'lodash.memoize',
+        path: 'node_modules/lodash.memoize/index.js'
+      },
+      {
         name: '@angular/material',
         path: 'node_modules/@angular/material/bundles/material.umd.js'
       },
