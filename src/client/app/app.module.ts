@@ -7,9 +7,6 @@ import { AppComponent } from './app.component';
 import { ListModule } from './list/list.module';
 import { ListGenerator } from './tree-generator.service';
 
-console.log(require('lodash.memoize'));
-console.log(require('immutable'));
-
 @NgModule({
   imports: [BrowserModule, ListModule],
   providers: [ListGenerator],
