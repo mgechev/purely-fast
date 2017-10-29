@@ -1,3 +1,4 @@
+import { ListComponent } from './list.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -6,6 +7,7 @@ import { MatListModule, MatCommonModule, MatChipsModule } from '@angular/materia
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 
 import { EmployeeListComponent } from './employee-list.component';
+import { NameInputComponent } from './name-input.component';
 
 @NgModule({
   imports: [
@@ -18,7 +20,7 @@ import { EmployeeListComponent } from './employee-list.component';
     MatCommonModule,
     MatChipsModule
   ],
-  declarations: [EmployeeListComponent],
+  declarations: [EmployeeListComponent, NameInputComponent, ListComponent],
   exports: [EmployeeListComponent]
 })
 export class EmployeeListModule {}
