@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Entry } from './../tree-generator.service';
+import { EmployeeData } from './../tree-generator.service';
 
 const fibonacci = (num: number): number => {
   if (num === 1 || num === 2) {
@@ -37,11 +37,11 @@ const fibonacci = (num: number): number => {
   `,
   styleUrls: ['list.component.css']
 })
-export class ListComponent {
-  @Input() data: Entry[];
+export class EmployeeListComponent {
+  @Input() data: EmployeeData[];
   @Input() department: string;
 
-  @Output() remove = new EventEmitter<Entry>();
+  @Output() remove = new EventEmitter<EmployeeData>();
   @Output() add = new EventEmitter<string>();
 
   label: string;
