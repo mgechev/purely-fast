@@ -14,19 +14,19 @@ const NumRange: [number, number] = [27, 30];
   moduleId: module.id,
   selector: 'sd-app',
   template: `
-    <sd-list
+    <sd-employee-list
       [data]="salesList"
       department="Sales"
       (add)="salesList = add(salesList, $event)"
       (remove)="salesList = remove(salesList, $event)"
-    ></sd-list>
+    ></sd-employee-list>
 
-    <sd-list
+    <sd-employee-list
       [data]="rndList"
       department="R&D"
       (add)="rndList = add(rndList, $event)"
       (remove)="rndList = remove(rndList, $event)"
-    ></sd-list>
+    ></sd-employee-list>
   `,
   styleUrls: ['app.component.css']
 })

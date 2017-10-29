@@ -12,7 +12,7 @@ const fibonacci = (num: number): number => {
 
 @Component({
   moduleId: module.id,
-  selector: 'sd-list',
+  selector: 'sd-employee-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h1 title="Department">{{ department }}</h1>
@@ -37,7 +37,7 @@ const fibonacci = (num: number): number => {
       <mat-divider *ngIf="data.size !== 0"></mat-divider>
     </mat-list>
   `,
-  styleUrls: ['list.component.css']
+  styleUrls: ['employee-list.component.css']
 })
 export class EmployeeListComponent {
   @Input() data: List<EmployeeData>;
