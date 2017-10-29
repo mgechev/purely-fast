@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 import { Entry } from './../tree-generator.service';
 
@@ -12,6 +12,7 @@ const fibonacci = (num: number): number => {
 @Component({
   moduleId: module.id,
   selector: 'sd-list',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h1 title="Department">{{ department }}</h1>
 
