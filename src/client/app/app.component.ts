@@ -1,9 +1,11 @@
+import { Rnd } from './data/rnd-70-27-30';
 import { ListGenerator, Entry } from './tree-generator.service';
 import { Component, OnInit } from '@angular/core';
 import './operators';
 import { Names } from './names';
+import { Sales } from './data/sales-70-27-30';
 
-const NumRange: [number, number] = [23, 28];
+const NumRange: [number, number] = [27, 30];
 
 @Component({
   moduleId: module.id,
@@ -33,8 +35,8 @@ export class AppComponent implements OnInit {
   constructor(private generator: ListGenerator) {}
 
   ngOnInit() {
-    this.salesList = this.generator.generate(Names, NumRange, 10);
-    this.rndList = this.generator.generate(Names, NumRange, 10);
+    this.salesList = Sales;
+    this.rndList = Rnd;
   }
 
   add(list: Entry[], name: string) {
