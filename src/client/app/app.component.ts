@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { List } from 'immutable';
 
-import { ListGenerator, Entry } from './tree-generator.service';
+import { ListGenerator, EmployeeData } from './tree-generator.service';
 import { Names } from './names';
 import './operators';
 
@@ -31,8 +31,8 @@ const NumRange: [number, number] = [27, 30];
   styleUrls: ['app.component.css']
 })
 export class AppComponent implements OnInit {
-  salesList: List<Entry>;
-  rndList: List<Entry>;
+  salesList: List<EmployeeData>;
+  rndList: List<EmployeeData>;
   label: string;
 
   constructor(private generator: ListGenerator) {}
@@ -42,11 +42,11 @@ export class AppComponent implements OnInit {
     this.rndList = List(Rnd);
   }
 
-  add(list: List<Entry>, name: string) {
+  add(list: List<EmployeeData>, name: string) {
     return list.unshift({ label: name, num: this.generator.generateNumber(NumRange) });
   }
 
-  remove(list: List<Entry>, node: Entry) {
+  remove(list: List<EmployeeData>, node: EmployeeData) {
     return list.splice(list.indexOf(node), 1);
   }
 }
