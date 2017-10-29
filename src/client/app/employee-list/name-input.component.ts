@@ -13,10 +13,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
       margin-left: 15px;
       width: calc(100% - 30px);
     }
-
-    mat-chip-list {
-      margin-right: 15px;
-    }
   `
   ]
 })
