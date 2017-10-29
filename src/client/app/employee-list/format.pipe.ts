@@ -9,9 +9,7 @@ const fibonacci = memoize((num: number): number => {
   return fibonacci(num - 1) + fibonacci(num - 2);
 });
 
-@Pipe({
-  name: 'format'
-})
+@Pipe({ name: 'format', pure: true })
 export class FormatPipe implements PipeTransform {
   transform(num: number) {
     return fibonacci(num);
