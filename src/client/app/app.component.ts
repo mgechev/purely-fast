@@ -1,8 +1,9 @@
-import { Rnd } from './data/rnd-70-27-30';
 import { ListGenerator, Entry } from './tree-generator.service';
 import { Component, OnInit } from '@angular/core';
 import './operators';
 import { Names } from './names';
+
+import { Rnd } from './data/rnd-70-27-30';
 import { Sales } from './data/sales-70-27-30';
 
 const NumRange: [number, number] = [27, 30];
