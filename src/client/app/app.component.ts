@@ -7,6 +7,7 @@ import './operators';
 
 import { Rnd } from './data/rnd-70-27-30';
 import { Sales } from './data/sales-70-27-30';
+import { DifferableList } from './differable-list/differable-list';
 
 const NumRange: [number, number] = [27, 30];
 
@@ -31,15 +32,15 @@ const NumRange: [number, number] = [27, 30];
   styleUrls: ['app.component.css']
 })
 export class AppComponent implements OnInit {
-  salesList: List<EmployeeData>;
-  rndList: List<EmployeeData>;
+  salesList: DifferableList<EmployeeData>;
+  rndList: DifferableList<EmployeeData>;
   label: string;
 
   constructor(private generator: ListGenerator) {}
 
   ngOnInit() {
-    this.salesList = List(Sales);
-    this.rndList = List(Rnd);
+    this.salesList = DifferableList.fromArray(Sales);
+    this.rndList = DifferableList.fromArray(Rnd);
   }
 
   add(list: List<EmployeeData>, name: string) {

@@ -1,3 +1,4 @@
+import { DifferableList } from './../differable-list/differable-list';
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 import { EmployeeData } from './../tree-generator.service';
@@ -16,7 +17,7 @@ import { List } from 'immutable';
   styleUrls: ['employee-list.component.css']
 })
 export class EmployeeListComponent {
-  @Input() data: List<EmployeeData>;
+  @Input() data: DifferableList<EmployeeData>;
   @Input() department: string;
 
   @Output() remove = new EventEmitter<EmployeeData>();
