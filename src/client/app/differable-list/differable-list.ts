@@ -1,7 +1,7 @@
 import { IterableChangeRecord } from '@angular/core';
 import { List } from 'immutable';
 
-const trackByIdentity = (index: number, item: any) => item;
+const trackByIdentity = (index: number, item: any) => index;
 
 class DifferableListIterator<T> implements Iterator<T> {
   private current = 0;
@@ -104,17 +104,6 @@ export class DifferableList<T> {
         trackById: trackByIdentity
       });
     });
-
-    const displacement = values.length - (len - idx);
-    // The items after after len will change their index to i + values.length
-    for (let i = len; i < this.data.size; i += 1) {
-      result.changes.push({
-        currentIndex: displacement + i,
-        previousIndex: i,
-        item: this.data.get(i),
-        trackById: trackByIdentity
-      });
-    }
 
     return result;
   }
