@@ -1,5 +1,14 @@
+import { DifferableListDiffer, DifferableListDifferFactory } from './../differable-list/differable-list-differ';
 import { DifferableList } from './../differable-list/differable-list';
-import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter,
+  IterableDiffers,
+  IterableDiffer
+} from '@angular/core';
 
 import { EmployeeData } from './../tree-generator.service';
 import { List } from 'immutable';
@@ -7,6 +16,7 @@ import { List } from 'immutable';
 @Component({
   moduleId: module.id,
   selector: 'sd-employee-list',
+  providers: [IterableDiffers.extend([new DifferableListDifferFactory()])],
   template: `
     <h1 title="Department">{{ department }}</h1>
 

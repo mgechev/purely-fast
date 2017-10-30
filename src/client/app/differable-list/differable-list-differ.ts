@@ -1,19 +1,39 @@
-import { IterableChangeRecord, IterableDiffer, IterableChanges, NgIterable } from '@angular/core';
+import {
+  IterableChangeRecord,
+  IterableDiffer,
+  IterableChanges,
+  NgIterable,
+  TrackByFunction,
+  IterableDifferFactory,
+  Injectable
+} from '@angular/core';
 import { DifferableList } from './differable-list';
+
+@Injectable()
+export class DifferableListDifferFactory<V> implements IterableDifferFactory {
+  supports(objects: any): boolean {
+    return objects instanceof DifferableList;
+  }
+
+  create(trackByFn?: TrackByFunction<V>): IterableDiffer<V> {
+    return new DifferableListDiffer<V>();
+  }
+}
 
 export class DifferableListDiffer<V> implements IterableDiffer<V>, IterableChanges<V> {
   private _data: DifferableList<V>;
+  private _changes: IterableChangeRecord<V>[] = [];
 
   forEachItem(fn: (record: IterableChangeRecord<V>) => void) {
     for (let i = 0; i < this._data.size; i += 1) {
-      fn(this._data.changes[i]);
+      fn(this._changes[i]);
     }
   }
 
   forEachOperation(
     fn: (item: IterableChangeRecord<V>, previousIndex: number | null, currentIndex: number | null) => void
   ) {
-    const changes = this._data.changes;
+    const changes = this._changes;
     for (let i = 0; i < changes.length; i += 1) {
       const record = changes[i];
       fn(record, record.previousIndex, record.currentIndex);
@@ -25,7 +45,7 @@ export class DifferableListDiffer<V> implements IterableDiffer<V>, IterableChang
   }
 
   forEachAddedItem(fn: (record: IterableChangeRecord<V>) => void) {
-    const changes = this._data.changes;
+    const changes = this._changes;
     for (let i = 0; i < changes.length; i += 1) {
       const record = changes[i];
       if (record.previousIndex === null) {
@@ -35,7 +55,7 @@ export class DifferableListDiffer<V> implements IterableDiffer<V>, IterableChang
   }
 
   forEachMovedItem(fn: (record: IterableChangeRecord<V>) => void) {
-    const changes = this._data.changes;
+    const changes = this._changes;
     for (let i = 0; i < changes.length; i += 1) {
       const record = changes[i];
       if (record.previousIndex !== null && record.previousIndex !== record.currentIndex) {
@@ -45,7 +65,7 @@ export class DifferableListDiffer<V> implements IterableDiffer<V>, IterableChang
   }
 
   forEachRemovedItem(fn: (record: IterableChangeRecord<V>) => void) {
-    const changes = this._data.changes;
+    const changes = this._changes;
     for (let i = 0; i < changes.length; i += 1) {
       const record = changes[i];
       if (record.currentIndex === null) {
@@ -62,40 +82,14 @@ export class DifferableListDiffer<V> implements IterableDiffer<V>, IterableChang
   }
 
   diff(collection: NgIterable<V>): DifferableListDiffer<V> | null {
-    if (this.check()) {
+    this._data = collection as DifferableList<V>;
+    const changes = this._data.changes;
+    this._changes = changes;
+    if (changes.length > 0) {
+      this._data.changes = [];
       return this;
     } else {
       return null;
-    }
-  }
-
-  onDestroy() {
-    // Do nothing
-  }
-
-  check(): boolean {
-    this._reset();
-    return this.isDirty;
-  }
-
-  /* CollectionChanges is considered dirty if it has any additions, moves, removals, or identity
-   * changes.
-   */
-  get isDirty(): boolean {
-    return this._data.changes.length > 0;
-  }
-
-  /**
-   * Reset the state of the change objects to show no changes. This means set previousKey to
-   * currentKey, and clear all of the queues (additions, moves, removals).
-   * Set the previousIndexes of moved and added items to their currentIndexes
-   * Reset the list of additions, moves and removals
-   *
-   * @internal
-   */
-  _reset() {
-    if (this.isDirty) {
-      this._data.changes = [];
     }
   }
 }
