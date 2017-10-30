@@ -86,7 +86,7 @@ export class DifferableList<T> {
     const result = new DifferableList<T>(this.data.splice(idx, len, ...values) as List<T>);
 
     // Values from i, len will be removed
-    for (let i = idx; i < len; i += 1) {
+    for (let i = idx; i < idx + len; i += 1) {
       result.changes.push({
         currentIndex: null,
         previousIndex: i,
