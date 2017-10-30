@@ -34,6 +34,10 @@ const fibonacci = (num: number): number => {
   mat-chip-list {
     margin-right: 15px;
   }
+
+  i.fa.fa-trash-o {
+    cursor: pointer;
+  }
   `
   ]
 })
