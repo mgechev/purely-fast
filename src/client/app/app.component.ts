@@ -5,8 +5,7 @@ import { ListGenerator, EmployeeData } from './tree-generator.service';
 import { Names } from './names';
 import './operators';
 
-import { Rnd } from './data/rnd-70-27-30';
-import { Sales } from './data/sales-70-27-30';
+import { Sales } from './data/sales-3000-27-30';
 import { DifferableList } from './differable-list/differable-list';
 
 const NumRange: [number, number] = [27, 30];
@@ -40,7 +39,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.salesList = DifferableList.fromArray(Sales);
-    this.rndList = DifferableList.fromArray(Rnd);
+    this.rndList = DifferableList.fromArray([]);
   }
 
   add(list: List<EmployeeData>, name: string) {

@@ -16,7 +16,7 @@ import { List } from 'immutable';
 @Component({
   moduleId: module.id,
   selector: 'sd-employee-list',
-  providers: [IterableDiffers.extend([new DifferableListDifferFactory()])],
+  // providers: [IterableDiffers.extend([new DifferableListDifferFactory()])],
   template: `
     <h1 title="Department">{{ department }}</h1>
 
