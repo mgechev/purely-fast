@@ -27,6 +27,10 @@ import { EmployeeData } from '../tree-generator.service';
   mat-chip-list {
     margin-right: 15px;
   }
+
+  i.fa.fa-trash-o {
+    cursor: pointer;
+  }
   `
   ]
 })
