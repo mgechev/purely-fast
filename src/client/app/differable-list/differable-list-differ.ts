@@ -8,6 +8,7 @@ import {
   Injectable
 } from '@angular/core';
 import { DifferableList } from './differable-list';
+import LinkedList from './linked-list';
 
 @Injectable()
 export class DifferableListDifferFactory<V> implements IterableDifferFactory {
@@ -22,21 +23,23 @@ export class DifferableListDifferFactory<V> implements IterableDifferFactory {
 
 export class DifferableListDiffer<V> implements IterableDiffer<V>, IterableChanges<V> {
   private _data: DifferableList<V>;
-  private _changes: IterableChangeRecord<V>[] = [];
+  private _changes: LinkedList<IterableChangeRecord<V>>;
 
   forEachItem(fn: (record: IterableChangeRecord<V>) => void) {
-    for (let i = 0; i < this._data.size; i += 1) {
-      fn(this._changes[i]);
+    let fst = this._changes.firstNode;
+    while (fst) {
+      fn(fst.element);
+      fst = fst.next;
     }
   }
 
   forEachOperation(
     fn: (item: IterableChangeRecord<V>, previousIndex: number | null, currentIndex: number | null) => void
   ) {
-    const changes = this._changes;
-    for (let i = 0; i < changes.length; i += 1) {
-      const record = changes[i];
-      fn(record, record.previousIndex, record.currentIndex);
+    let fst = this._changes.firstNode;
+    while (fst) {
+      fn(fst.element, fst.element.previousIndex, fst.element.currentIndex);
+      fst = fst.next;
     }
   }
 
@@ -45,32 +48,35 @@ export class DifferableListDiffer<V> implements IterableDiffer<V>, IterableChang
   }
 
   forEachAddedItem(fn: (record: IterableChangeRecord<V>) => void) {
-    const changes = this._changes;
-    for (let i = 0; i < changes.length; i += 1) {
-      const record = changes[i];
+    let fst = this._changes.firstNode;
+    while (fst) {
+      const record = fst.element;
       if (record.previousIndex === null) {
         fn(record);
       }
+      fst = fst.next;
     }
   }
 
   forEachMovedItem(fn: (record: IterableChangeRecord<V>) => void) {
-    const changes = this._changes;
-    for (let i = 0; i < changes.length; i += 1) {
-      const record = changes[i];
+    let fst = this._changes.firstNode;
+    while (fst) {
+      const record = fst.element;
       if (record.previousIndex !== null && record.previousIndex !== record.currentIndex) {
         fn(record);
       }
+      fst = fst.next;
     }
   }
 
   forEachRemovedItem(fn: (record: IterableChangeRecord<V>) => void) {
-    const changes = this._changes;
-    for (let i = 0; i < changes.length; i += 1) {
-      const record = changes[i];
+    let fst = this._changes.firstNode;
+    while (fst) {
+      const record = fst.element;
       if (record.currentIndex === null) {
         fn(record);
       }
+      fst = fst.next;
     }
   }
 
@@ -85,8 +91,8 @@ export class DifferableListDiffer<V> implements IterableDiffer<V>, IterableChang
     this._data = collection as DifferableList<V>;
     const changes = this._data.changes;
     this._changes = changes;
-    if (changes.length > 0) {
-      this._data.changes = [];
+    if (changes.size() > 0) {
+      this._data.changes = new LinkedList<IterableChangeRecord<V>>();
       return this;
     } else {
       return null;

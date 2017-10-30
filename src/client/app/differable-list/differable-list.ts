@@ -1,5 +1,6 @@
 import { IterableChangeRecord } from '@angular/core';
 import { List } from 'immutable';
+import LinkedList from './linked-list';
 
 const trackByIdentity = (index: number, item: any) => index;
 
@@ -21,13 +22,12 @@ class DifferableListIterator<T> implements Iterator<T> {
 }
 
 export class DifferableList<T> {
-  /* @internal */
-  changes: IterableChangeRecord<T>[] = [];
+  changes = new LinkedList<IterableChangeRecord<T>>();
 
   static fromArray<T>(arr: T[]): DifferableList<T> {
     const result = new DifferableList<T>(List<T>(arr));
     arr.forEach((item, idx) =>
-      result.changes.push({
+      result.changes.add({
         currentIndex: idx,
         previousIndex: null,
         item: item,
@@ -41,7 +41,7 @@ export class DifferableList<T> {
 
   unshift(data: T) {
     const result = new DifferableList<T>(this.data.unshift(data));
-    result.changes.push({
+    result.changes.add({
       currentIndex: 0,
       previousIndex: null,
       item: data,
@@ -53,7 +53,7 @@ export class DifferableList<T> {
   pop(): DifferableList<T> {
     const last = this.data.get(this.size - 1);
     const result = new DifferableList<T>(this.data.pop());
-    result.changes.push({
+    result.changes.add({
       currentIndex: null,
       previousIndex: this.size - 1,
       item: last,
@@ -66,14 +66,14 @@ export class DifferableList<T> {
     const prev = this.data.get(idx);
     const result = new DifferableList<T>(this.data.set(idx, item));
     if (prev) {
-      result.changes.push({
+      result.changes.add({
         currentIndex: null,
         previousIndex: idx,
         item: prev,
         trackById: trackByIdentity
       });
     }
-    result.changes.push({
+    result.changes.add({
       currentIndex: idx,
       previousIndex: null,
       item: item,
@@ -87,7 +87,7 @@ export class DifferableList<T> {
 
     // Values from i, len will be removed
     for (let i = idx; i < idx + len; i += 1) {
-      result.changes.push({
+      result.changes.add({
         currentIndex: null,
         previousIndex: i,
         item: this.data.get(i),
@@ -97,7 +97,7 @@ export class DifferableList<T> {
 
     // The items from the values array will be appended
     values.forEach((v, i) => {
-      result.changes.push({
+      result.changes.add({
         currentIndex: idx + i,
         previousIndex: null,
         item: v,
