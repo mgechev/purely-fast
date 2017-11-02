@@ -14,7 +14,7 @@ import { EmployeeData } from '../tree-generator.service';
       </h3>
       <mat-chip-list>
         <md-chip title="Score" class="mat-chip mat-primary mat-chip-selected" color="primary" selected="true">
-          {{ item.num | format }}
+          {{ item.num | calculate }}
         </md-chip>
       </mat-chip-list>
       <i title="Delete" class="fa fa-trash-o" aria-hidden="true" (click)="remove.emit(item)"></i>
